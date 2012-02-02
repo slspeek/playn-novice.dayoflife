@@ -1,5 +1,10 @@
-from datetime import date
+from datetime import date, timedelta
 from dateutil.relativedelta import relativedelta
+import sys
+import datetime
+import dateutil
+import dateutil.parser
+STANDARD_DELTA = timedelta(days=+10 * 365.25)
 
 def isprime(n):
     '''check if integer n is a prime'''
@@ -36,5 +41,18 @@ def primedays(today, dayofbirth, delta):
     r = makerange(today, dayofbirth, delta)
     return filter(isprime, r)
 
+def fromdayoflife2date(dayofbirth, dayoflife):
+    return dayofbirth + timedelta(days=+dayoflife)
+
+def main():
+    dayofbirth_string = sys.argv[1]
+    dayofbirth = dateutil.parser.parse(dayofbirth_string).date()
+    l = list(primedays(date.today(), dayofbirth, STANDARD_DELTA))
+    for special_day in l:
+        special_date = fromdayoflife2date(dayofbirth, special_day)
+        print special_date, special_day
+    
+if __name__ == "__main__":
+    main()
 
         

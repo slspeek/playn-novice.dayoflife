@@ -27,4 +27,4 @@ def test_primedays():
     r = primedays(today, dob, timedelta(days=+10))
     l = list(r)
     assert l == [11,13,17,19]
-    
+
